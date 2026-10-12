@@ -1,0 +1,13 @@
+# Render Blueprint: Render reads this file when you connect the GitHub repo.
+services:
+  - type: web
+    name: blockradar
+    runtime: python
+    plan: free               # free sleeps after ~15 min idle; change to "starter" (paid) to keep it awake
+    buildCommand: echo "nothing to build - standard library only"
+    startCommand: python server.py --host 0.0.0.0
+    healthCheckPath: /healthz
+    autoDeploy: true
+    # No password: anyone with the link can view the dashboard. To add one, set BR_ACCESS_KEY (12+ characters).
+    # Optional: set UPSTOX_API_KEY and UPSTOX_API_SECRET in Render > Environment so nobody can swap them
+    # and Login with Upstox is one click after every restart.

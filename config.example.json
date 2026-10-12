@@ -1,0 +1,5 @@
+{
+  "access_token": "PASTE_YOUR_UPSTOX_ANALYTICS_TOKEN_HERE",
+  "port": 8765,
+  "quote_seconds": 5
+}
