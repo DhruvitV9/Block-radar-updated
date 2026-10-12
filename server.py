@@ -502,7 +502,12 @@ def wait_for_next_scan():
         if S.refresh_flag.wait(1):
             S.refresh_flag.clear()
             return
-        if market_open() != was_open or time.time() >= deadline:
+        now_open = market_open()
+        if now_open != was_open:
+            if now_open:
+                time.sleep(25)          # market just opened: let the first 5-minute candle start forming, then scan
+            return
+        if time.time() >= deadline:
             return
 
 

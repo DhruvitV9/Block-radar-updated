@@ -104,6 +104,9 @@ Click any stock for the full chart, reasons, nearby liquidity and a **position-s
   candle closes through it.
 * **Liquidity**: previous-day high/low, day high/low, equal highs/lows, untouched swing points.
   A *sweep* = wick through a level that closes back inside.
+* **From 09:15:** stocks are ranked from the first candle. Until 8 candles (about 09:55 IST) exist, setups carry an
+  **Early** tag, scores are capped at 72, only the strongest 25 per side are shown, and if no order block exists yet the
+  first 5-minute candle is used as an **opening block** (OR on the chart). Treat early signals as a watchlist.
 * **Score (0-99)** = Trend 25 + Order-block quality 25 + Liquidity 20 + Flow 15 + Entry readiness 15,
   minus penalties for choppy price (frequent VWAP crossings), target already hit, or stop broken.
 * **Plan**: entry = price clamped into the zone, stop = beyond the zone by 0.25 ATR (never less than
