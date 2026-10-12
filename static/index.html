@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BlockRadar | F&amp;O Order Block &amp; Liquidity Scanner</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="application-name" content="BlockRadar">
+<meta name="apple-mobile-web-app-title" content="BlockRadar">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f3f5fa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b101b" media="(prefers-color-scheme: dark)">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!--CSS--><link rel="stylesheet" href="style.css"><!--/CSS-->
+</head>
+<body>
+<header class="bar">
+  <div class="bar-in">
+    <div class="logo" aria-label="BlockRadar">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#10c28a"/><stop offset="1" stop-color="#4fe0ad"/></linearGradient></defs><rect x="3" y="8" width="17" height="4.4" rx="1.9" fill="url(#lg)"/><rect x="3" y="14" width="10.5" height="4.4" rx="1.9" fill="#ff4467"/><rect x="3" y="20" width="17" height="4.4" rx="1.9" fill="#2c78e6"/><path d="M17.5 3.2A13 13 0 0 1 28.6 12" fill="none" stroke="#18c98a" stroke-width="2.2" stroke-linecap="round"/><circle cx="28.6" cy="12" r="2.1" fill="#18c98a"/></svg>
+      BlockRadar
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab" role="tab" data-tab="picks" aria-selected="true">Top picks</button>
+      <button class="tab" role="tab" data-tab="liquidity" aria-selected="false">Liquidity board</button>
+      <button class="tab" role="tab" data-tab="xray" aria-selected="false">Market X-ray</button>
+      <button class="tab" role="tab" data-tab="all" aria-selected="false">All stocks</button>
+      <button class="tab" role="tab" data-tab="rules" aria-selected="false">Rules &amp; method</button>
+    </nav>
+    <div class="bar-r">
+      <span class="live" id="live" data-state="demo"><i class="dot"></i><span class="lt" id="live-text">Starting</span></span>
+      <button class="icon-btn" data-act="theme" aria-label="Toggle light and dark theme"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn" data-act="settings" aria-label="Settings and Upstox connection"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+    </div>
+  </div>
+  <div class="banner" id="banner"></div>
+</header>
+
+<main>
+  <!-- ============ TOP PICKS ============ -->
+  <section class="view on" id="view-picks">
+    <div class="sec-head">
+      <div>
+        <h2>See where big money <span class="grad">stepped in first.</span></h2>
+        <p class="sub">All F&amp;O stocks scanned for order blocks and liquidity. Only the cleanest zones are ranked, each with a stop, two targets and a reward-to-risk number.</p>
+      </div>
+    </div>
+    <div class="pulse" id="pulse"></div>
+    <div class="feature-wrap" id="feature"></div>
+    <div class="toolbar">
+      <label><input type="checkbox" id="hide-dead" checked> Hide setups that already hit target or stop</label>
+      <span class="faint">Click any card for the full chart, reasons and position sizing.</span>
+    </div>
+    <div class="two" id="lists"></div>
+  </section>
+
+  <!-- ============ LIQUIDITY BOARD ============ -->
+  <section class="view" id="view-liquidity">
+    <div class="sec-head">
+      <div>
+        <h2>Liquidity board. <span class="grad">See the bricks.</span></h2>
+        <p class="sub">Each tile is today's volume at every price. Dark, long bricks are where heavy money traded. Green bricks mean buyers dominated that price, red means sellers. The hatched band is the order block and the dashed line is the live price.</p>
+      </div>
+    </div>
+    <div class="legend"><span><i style="background:var(--bull)"></i>Buyers dominated</span><span><i style="background:var(--bear)"></i>Sellers dominated</span><span><i style="background:repeating-linear-gradient(135deg,var(--ink3) 0 2px,transparent 2px 5px)"></i>Order block</span><span class="faint">Dots show conviction (1 to 5)</span></div>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <!-- ============ X-RAY ============ -->
+  <section class="view" id="view-xray">
+    <div class="sec-head">
+      <div>
+        <h2>Market X-ray. <span class="grad">Find what to trade in seconds.</span></h2>
+        <p class="sub">Every scanned stock is one dot. Green dots lean bullish, red lean bearish, grey ones are choppy and skipped. Ringed dots are the strongest setups on each side. Hover a dot, click to open it.</p>
+      </div>
+    </div>
+    <div class="xray"><canvas id="swarm" aria-label="Distribution of all scanned stocks by bullish and bearish strength" role="img"></canvas><div class="xray-l" id="xray-l"></div></div>
+    <h3 style="margin:22px 0 10px">Sectors</h3>
+    <div class="secs" id="secs"></div>
+  </section>
+
+  <!-- ============ ALL STOCKS ============ -->
+  <section class="view" id="view-all">
+    <div class="sec-head"><div><h2>Every F&amp;O stock</h2><p class="sub">Sort any column. The signal and score update after each 5-minute candle.</p></div><span class="faint" id="row-count"></span></div>
+    <div class="filters">
+      <div class="seg" role="group" aria-label="Signal filter"><button data-filter="all" aria-pressed="true">All</button><button data-filter="bull" aria-pressed="false">Long</button><button data-filter="bear" aria-pressed="false">Short</button><button data-filter="chop" aria-pressed="false">Choppy</button></div>
+      <select id="sec-filter" aria-label="Sector"><option value="">All sectors</option></select>
+      <input type="search" id="q" placeholder="Search symbol" aria-label="Search symbol">
+    </div>
+    <div class="tbl-wrap"><table id="tbl"><thead><tr>
+      <th data-k="sym">Symbol</th><th data-k="sector">Sector</th><th data-k="ltp">Price</th><th data-k="chgPct">Change</th><th data-k="dir">Signal</th><th data-k="score">Score</th><th data-k="state">State</th><th>Entry zone</th><th>Stop</th><th>Target 2</th><th data-k="rr">Reward:risk</th><th data-k="rv">Rel. volume</th>
+    </tr></thead><tbody id="tbody"></tbody></table></div>
+  </section>
+
+  <!-- ============ RULES ============ -->
+  <section class="view" id="view-rules">
+    <div class="sec-head"><div><h2>Rules &amp; method</h2><p class="sub">How a stock earns its score, and the rules that keep you in the game.</p></div></div>
+    <div class="risk-box">
+      <p><b>Read this first.</b> No scanner knows what price will do next. SEBI's studies found roughly nine in ten individual F&amp;O traders lose money. BlockRadar narrows 200+ stocks to a handful with a defined stop, so a wrong call costs a small, planned amount. It cannot turn a bad plan into a good one, and it is not investment advice.</p>
+    </div>
+    <div class="prose">
+      <h3>Survival rules</h3>
+      <ol>
+        <li><b>Risk 1% of capital per trade, or less.</b> The calculator in every stock window sizes the lots for you. If one lot risks more than your limit, skip the stock.</li>
+        <li><b>Always place the stop.</b> The plan's stop is where the setup is wrong. Moving it further away is how small losses become account-ending ones.</li>
+        <li><b>Cap the day.</b> Stop trading after two losing trades or a 2% daily loss. Revenge trades are the biggest killer of accounts.</li>
+        <li><b>Trade 1 to 3 setups, not 10.</b> Take the highest scores that are <i>In zone</i> or <i>Approaching</i> with reward to risk of 1:2 or better.</li>
+        <li><b>Do not chase.</b> If a card says <i>Extended</i> or <i>Target hit</i>, the entry has passed. Wait for the next one.</li>
+        <li><b>Treat 09:15 to 09:55 as a watchlist.</b> Signals appear from the first candle but carry an <i>Early</i> tag, because there is very little price history yet. They firm up after about 40 minutes. Results days and big news also break patterns.</li>
+        <li><b>Paper trade it for two weeks first.</b> Log each signal and what happened. Trust the numbers you gathered, not a screenshot.</li>
+        <li><b>Mind the margin.</b> A single F&amp;O lot is often worth several lakh rupees. Leverage magnifies losses exactly as it magnifies gains.</li>
+      </ol>
+      <h3>How the score (0 to 99) is built</h3>
+    </div>
+    <div class="parts">
+      <div class="part"><b>25</b><span>Trend</span><p>Price versus VWAP and the day's open, higher highs and lows (or lower), VWAP slope, day change.</p></div>
+      <div class="part"><b>25</b><span>Order block quality</span><p>Impulse size in ATR, volume on the impulse, how fresh and untested the zone is.</p></div>
+      <div class="part"><b>20</b><span>Liquidity</span><p>A recent stop-hunt (sweep) that reclaimed, and real liquidity levels to run toward.</p></div>
+      <div class="part"><b>15</b><span>Flow</span><p>Volume versus normal for this time, strength versus Nifty and sector, order book imbalance.</p></div>
+      <div class="part"><b>15</b><span>Entry readiness</span><p>How close price is to the zone and the reward-to-risk of the plan.</p></div>
+    </div>
+    <div class="prose">
+      <p>Points are removed when price keeps crossing VWAP (choppy), when the first target has already been hit, or when the stop is broken.</p>
+      <h3>Terms</h3>
+      <ul>
+        <li><b>Order block (OB):</b> the last opposite candle before a strong, structure-breaking move. Large players often have unfilled orders there, so price tends to react when it returns.</li>
+        <li><b>Liquidity:</b> prices where many stop orders sit, such as the previous day's high or low, equal highs and equal lows. Price is often pulled to these before reversing.</li>
+        <li><b>Sweep:</b> a wick through a liquidity level that closes back inside. A stop-hunt.</li>
+        <li><b>VWAP:</b> volume-weighted average price for the day. Above it favours buyers, below it favours sellers.</li>
+        <li><b>ATR:</b> average 5-minute candle range, used to size zones, stops and distances.</li>
+        <li><b>Reward:risk (R:R):</b> distance to Target 2 divided by distance to the stop.</li>
+      </ul>
+      <h3>Data and limits</h3>
+      <ul>
+        <li>Live mode reads Upstox 5-minute candles, daily history and quotes through a local server. The token is read-only and stays on your computer.</li>
+        <li>Volume buy/sell split is estimated from where each candle closed within its range. It is not exchange tick data.</li>
+        <li>Rankings refresh after every 5-minute candle closes. Prices and states update every few seconds in between.</li>
+        <li>Before 09:55 IST (fewer than 8 candles) stocks are ranked from the opening candle, previous-day levels, volume and strength versus Nifty. If no order block exists yet, the first candle is used as an <b>opening block</b> (marked OR on the chart). Only the strongest 25 per side are shown.</li>
+        <li>Scores are rule-based and have not been back-tested here. Treat them as a shortlist, then use judgement.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+<footer>BlockRadar is an educational analysis tool. It does not place orders and is not investment advice. Derivatives trading carries substantial risk of loss.</footer>
+
+<!-- ============ DIALOGS ============ -->
+<dialog id="dlg-stock" aria-label="Stock analysis"><div class="dlg" id="dlg-body"></div></dialog>
+
+<dialog id="dlg-settings" aria-label="Settings" style="width:min(560px,calc(100vw - 20px))">
+  <div class="dlg">
+    <div class="dlg-top"><h3 style="font-size:24px">Settings</h3><button class="icon-btn" data-act="close-dlg" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <h3 style="font-size:16px;margin:18px 0 8px">Upstox connection</h3>
+    <div id="conn"></div>
+    <details style="margin-top:12px"><summary style="cursor:pointer;font-weight:600">First time? How to set up the Upstox login</summary>
+      <ol class="steps muted">
+        <li>At <code>account.upstox.com/developer/apps</code> create an app (or open yours). Copy its <b>API key</b> and <b>API secret</b>.</li>
+        <li>Paste the Redirect URL shown above into the app's <b>Redirect URL</b> field and save. It must match character for character.</li>
+        <li>Enter the API key and secret here, press <b>Save and continue</b>, then <b>Login with Upstox</b> and sign in on Upstox's own page.</li>
+      </ol>
+    </details>
+    <h3 style="font-size:16px;margin:20px 0 8px">Display</h3>
+    <div style="display:grid;gap:10px">
+      <label>Theme <select id="set-theme"><option value="auto">Match my device</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+      <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="set-hide"> Hide setups that already hit target or stop</label>
+    </div>
+  </div>
+</dialog>
+
+<div class="overlay" id="loading"><div class="box"><h3 style="font-size:22px">Scanning F&amp;O stocks</h3><p class="muted" id="load-txt" style="margin:8px 0 0">Connecting to Upstox...</p><div class="prog"><i id="load-bar"></i></div><p class="faint" style="font-size:12.5px;margin:0">The first scan takes about a minute. It stays inside Upstox rate limits.</p></div></div>
+<div class="tip" id="tip" style="display:none"></div>
+
+<!--JS-->
+<script src="universe.js"></script>
+<script src="engine.js"></script>
+<script src="demo.js"></script>
+<script src="charts.js"></script>
+<script src="app.js"></script>
+<!--/JS-->
+</body>
+</html>
